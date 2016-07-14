@@ -5,7 +5,6 @@
  */
 package io.jibli.jibli;
 
-
 import java.util.Date;
 
 /**
@@ -13,21 +12,38 @@ import java.util.Date;
  * @author Mohamed
  */
 public class Announce {
+   
+   private int announceId;
    private String product;
    private double price;
    private double profit;
    private String location;
    private Date   postdatetime;
    private String comment;
+   private String buyerId;
 
-   public Announce(String product, double price, double profit, String location, Date postdatetime, String comment) {
+
+   public Announce(String product, double price, double profit, String location, String comment, String buyerId) {
       this.product = product;
       this.price = price;
       this.profit = profit;
       this.location = location;
-      this.postdatetime = postdatetime;
       this.comment = comment;
+      this.buyerId = buyerId;
    }
+
+
+
+
+   public int getAnnounceId() {
+      return announceId;
+   }
+
+   public void setAnnounceId(int announceId) {
+      this.announceId = announceId;
+   }
+
+ 
 
    public String getProduct() {
       return product;
@@ -75,6 +91,14 @@ public class Announce {
 
    public void setComment(String comment) {
       this.comment = comment;
+   }
+
+   public String getBuyerId() {
+      return buyerId;
+   }
+
+   public void setBuyerId(String buyerId) {
+      this.buyerId = buyerId;
    }
 
    @Override

@@ -292,10 +292,10 @@ public class MessageCollection extends AppCompatActivity {
 
     public void readMessage(JsonReader reader) throws IOException {
         //assume that if not specificed these proprieties are null
-        String M_MESSAGE;
-        String M_DATE;
-        int SENDER;
-        int RECEIVER;
+        String M_MESSAGE = null;
+        String M_DATE = null;
+        int SENDER = 0;
+        int RECEIVER = 0;
 
         //start reading an object from the array
         reader.beginObject();
@@ -353,21 +353,23 @@ public class MessageCollection extends AppCompatActivity {
         StringBuffer buffer = new StringBuffer();
         if (inputStream == null) {
             // Nothing to do.
-            return null;
         }
 
-        inputStream
+        try {
+            JsonMessageReader(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // return JSON String
+/*
 
-
-        jObj.
         try {
             return (new Message((String)jObj.get("M_MESSAGE"),(Date) jObj.get("M_DATE"),(String)jObj.get("RECEIVER"),(String)jObj.get("SENDER")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return null;*/
     }
 
 

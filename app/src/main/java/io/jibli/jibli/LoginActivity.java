@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -65,7 +66,6 @@ public class LoginActivity extends AppCompatActivity{
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private sendingTask sendingtask = null;
-    public static MessageCollection messageCollection;
 
 
     // UI references.
@@ -76,13 +76,32 @@ public class LoginActivity extends AppCompatActivity{
     private TextView ClickView;
     private Button mEmailSignInButton;
     String email ;
+    public static UserCollection usercollection;
+    public static JourneyCollection journeyCollection = new JourneyCollection();
+    public static AnnounceCollection announceCollection = new AnnounceCollection();
+    public static String userConnectedEmail = null;
 
+
+    public void onViewCreated(View view, Bundle savedInstanceState)
+    {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        usercollection = new UserCollection();
         setupActionBar();
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+        }
 
         //as a test then change it to the link later
 /*
@@ -174,6 +193,8 @@ public class LoginActivity extends AppCompatActivity{
             cancel = true;
         }
 
+        usercollection.UpdateUsers();
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -182,8 +203,27 @@ public class LoginActivity extends AppCompatActivity{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            sendingtask = new sendingTask(email,password);
-            sendingtask.execute((Void) null);
+            if (usercollection.authenticateUser(email,password)){
+                userConnectedEmail = email;
+                finish();
+                Intent i=new Intent(LoginActivity.this,DashBoard.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("email", email);
+
+                startActivity(i);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Incorrect Authentification", Toast.LENGTH_LONG).show();
+                finish();
+                Intent i=new Intent(LoginActivity.this,LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("email", email);
+
+                startActivity(i);
+
+            }
+
+
 
         }
     }

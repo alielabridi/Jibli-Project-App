@@ -55,6 +55,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static io.jibli.jibli.LoginActivity.usercollection;
+import static io.jibli.jibli.LoginActivity.userConnectedEmail;
 
 public class SignUp extends AppCompatActivity{
 
@@ -191,8 +193,13 @@ public class SignUp extends AppCompatActivity{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            sendingtask = new sendingTask(email,firstname,lastname,password,phonenumber);
-            sendingtask.execute((Void) null);
+            usercollection.addMember(new User(password, firstname, lastname, email, phonenumber));
+            userConnectedEmail = email;
+            Toast.makeText(getApplicationContext(), "You have signed up successfully", Toast.LENGTH_LONG).show();
+            finish();
+            Intent i=new Intent(SignUp.this,DashBoard.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
 
         }
     }

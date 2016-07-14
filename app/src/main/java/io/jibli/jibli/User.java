@@ -13,19 +13,21 @@ package io.jibli.jibli;
  */
 public class User {
    private String passWord;
-   private String name;
+   private String firstname;
+   private String lastname;
    private String email;
    private String phoneNumber;
    private int rating;
    private double transact;
 
-   public User(String passWord, String name, String email, String phoneNumber, int rating, double transact) {
+
+
+   public User(String passWord, String firstname,String lastname, String email, String phoneNumber) {
       this.passWord = passWord;
-      this.name = name;
+      this.lastname = lastname;
+      this.firstname = firstname;
       this.email = email;
       this.phoneNumber = phoneNumber;
-      this.rating = rating;
-      this.transact = transact;
    }
 
    public String getPassWord() {
@@ -36,12 +38,20 @@ public class User {
       this.passWord = passWord;
    }
 
-   public String getName() {
-      return name;
+   public String getLastname() {
+      return lastname;
    }
 
-   public void setName(String name) {
-      this.name = name;
+   public void setLastname(String lastname) {
+      this.lastname = lastname;
+   }
+
+   public String getFirstname() {
+      return firstname;
+   }
+
+   public void setFirstname(String firstname) {
+      this.firstname = firstname;
    }
 
    public String getEmail() {
