@@ -46,7 +46,7 @@ import java.text.ParseException;
  */
 public class UserCollection extends AppCompatActivity {
 
-    static List<User> users;
+    public  List<User> users;
     private sendingUser sendingUser = null;
 
 
@@ -61,6 +61,13 @@ public class UserCollection extends AppCompatActivity {
         new sendingUser(m.getPassWord(),m.getFirstname(),m.getLastname(),m.getEmail(),m.getPhoneNumber());
 
 
+    }
+
+    public User searchUser(String ID){
+        for (User user: users)
+            if(user.getEmail().equals(ID))
+                return user;
+        return null;
     }
 
     public void removeUser(User m) {
@@ -296,7 +303,7 @@ public class UserCollection extends AppCompatActivity {
                 phoneNumber = reader.nextString();
             } else if (name.equals("U_LNAME")) {
                 lastname = reader.nextString();
-            } else if (name.equals("F_LNAME")) {
+            } else if (name.equals("U_FNAME")) {
                 firstname = reader.nextString();
 
             } else {

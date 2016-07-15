@@ -69,6 +69,14 @@ public class AnnounceCollection extends AppCompatActivity {
         }
     }
 
+    public Announce searchAnnounce (String ID){
+
+        for(Announce announce : announces)
+            if (announce.getAnnounceId() == Integer.parseInt(ID))
+                return announce;
+        return null;
+
+    }
 
     public class sendingAnnounce extends AsyncTask<Void, Void, Boolean> {
     private int announceId;
@@ -277,7 +285,7 @@ public class AnnounceCollection extends AppCompatActivity {
     String location = null;
     String   postdatetime = null;
     String comment = null;
-    int buyerId = 0 ;
+    String buyerId = null ;
 
         //start reading an object from the array
         reader.beginObject();
@@ -299,7 +307,7 @@ public class AnnounceCollection extends AppCompatActivity {
              } else if (name.equals("A_PROFIT")) {
                 profit = reader.nextDouble();
               } else if (name.equals("BU_ID")) {
-                buyerId = reader.nextInt();
+                buyerId = reader.nextString();
             } else {
                 reader.skipValue();
             }
@@ -309,14 +317,19 @@ public class AnnounceCollection extends AppCompatActivity {
          new java.text.SimpleDateFormat("yyyy-MM-dd");
          java.util.Date dt = new java.util.Date();
          dt = sdf.parse(postdatetime);
-          // Announce announce = new Announce( announceId,  product,  price,  profit,  location,  dt,  comment,  buyerId);
+          Announce announce = new Announce( announceId,  product,  price,  profit,  location,  postdatetime,  comment,  buyerId);
 
-       // announces.add(announce);
+        announces.add(announce);
 
     }
 
 
     public void UpdateAnnounces() {
+
+
+        while (!announces.isEmpty()) {
+            announces.remove(0);
+        }
 
         InputStream is = null;
         JSONObject jObj = null;
@@ -327,7 +340,7 @@ public class AnnounceCollection extends AppCompatActivity {
 
         URL url = null;
         try {
-            url = new URL("http://www.scantosign.com/sheet?q=");
+            url = new URL("http://get2mail.fr/jibli/announce_post.php");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

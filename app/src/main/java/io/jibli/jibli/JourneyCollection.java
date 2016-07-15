@@ -59,6 +59,15 @@ public class JourneyCollection extends AppCompatActivity {
         
     }
 
+    public Journey searchJourney (String ID){
+
+        for(Journey journey : journeys)
+            if (journey.getJourneyID() == Integer.parseInt(ID))
+                return journey;
+        return null;
+
+    }
+
     public boolean removejourney(Journey ano) {
         return journeys.remove(ano);
     }
@@ -276,7 +285,7 @@ public class JourneyCollection extends AppCompatActivity {
             } else if (name.equals("J_DATE")) {
                date = reader.nextString();
             } else if (name.equals("J_DESTINATION")) {
-                depar =  reader.nextString();
+                dest =  reader.nextString();
             } else if (name.equals("J_DEPARTURE")) {
                 depar = reader.nextString();
             } else if (name.equals("BR_ID")) {
@@ -286,12 +295,11 @@ public class JourneyCollection extends AppCompatActivity {
             }
         }
         reader.endObject();
-        java.text.SimpleDateFormat sdf = 
-         new java.text.SimpleDateFormat("yyyy-MM-dd");
-         java.util.Date dt =  sdf.parse(date);
-         //  Journey jour = new Journey( journeyID,  dt,  dest,  depar,bringerId);
+        //java.text.SimpleDateFormat sdf =
+        /* new java.text.SimpleDateFormat("yyyy-MM-dd");
+         java.util.Date dt =  sdf.parse(date);*/
 
-        //journeys.add(jour);
+        journeys.add(new Journey(journeyID, date, dest, depar, bringerId));
 
     }
 
@@ -305,9 +313,13 @@ public class JourneyCollection extends AppCompatActivity {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
+        while (!journeys.isEmpty()) {
+            journeys.remove(0);
+        }
+
         URL url = null;
         try {
-            url = new URL("http://www.scantosign.com/sheet?q=");
+            url = new URL("http://get2mail.fr/jibli/journey_post.php");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

@@ -33,7 +33,13 @@ public class Journey {
       this.bringerId = bringerId;
    }
 
-  
+   public Journey(int journeyID, String date, String depar, String dest, String bringerId) {
+      this.journeyID = journeyID;
+      this.date = date;
+      this.depar = depar;
+      this.dest = dest;
+      this.bringerId = bringerId;
+   }
 
    public int getJourneyID() {
       return journeyID;

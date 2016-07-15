@@ -18,7 +18,7 @@ public class Announce {
    private double price;
    private double profit;
    private String location;
-   private Date   postdatetime;
+   private String   postdatetime;
    private String comment;
    private String buyerId;
 
@@ -32,8 +32,16 @@ public class Announce {
       this.buyerId = buyerId;
    }
 
-
-
+   public Announce(int announceId, String product, double price, double profit, String location, String postdatetime, String comment, String buyerId) {
+      this.announceId = announceId;
+      this.product = product;
+      this.price = price;
+      this.profit = profit;
+      this.location = location;
+      this.postdatetime = postdatetime;
+      this.comment = comment;
+      this.buyerId = buyerId;
+   }
 
    public int getAnnounceId() {
       return announceId;
@@ -77,11 +85,11 @@ public class Announce {
       this.location = location;
    }
 
-   public Date getPostdatetime() {
+   public String getPostdatetime() {
       return postdatetime;
    }
 
-   public void setPostdatetime(Date postdatetime) {
+   public void setPostdatetime(String postdatetime) {
       this.postdatetime = postdatetime;
    }
 

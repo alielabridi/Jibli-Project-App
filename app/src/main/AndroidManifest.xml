@@ -59,6 +59,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.jibli.jibli.DashBoard" />
         </activity>
+        <activity android:name=".AnnounceDetails" />
+        <activity android:name=".TripDetails"></activity>
     </application>
 
 </manifest>
